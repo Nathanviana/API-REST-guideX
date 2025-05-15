@@ -8,7 +8,7 @@ export class UserController {
   constructor(private prisma: PrismaClient) {}
 
   // Registro de novo usuário
-  register = async (req: Request, res: Response): Promise<void> => {
+  create = async (req: Request, res: Response): Promise<void> => {
     const { email, password, name } = req.body;
 
     try {
@@ -42,7 +42,7 @@ export class UserController {
   };
 
   // Listar todos os usuários
-  listUsers = async (req: Request, res: Response): Promise<void> => {
+  index = async (req: Request, res: Response): Promise<void> => {
     try {
       const users = await this.prisma.user.findMany();
       res.json(users);
@@ -52,7 +52,7 @@ export class UserController {
   };
 
   // Obter detalhes de um usuário específico
-  getUser = async (req: Request, res: Response): Promise<void> => {
+  show = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
 
     try {
@@ -68,7 +68,7 @@ export class UserController {
   };
 
   // Atualizar informações de um usuário
-  updateUser = async (req: Request, res: Response): Promise<void> => {
+  update = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const { email, name } = req.body;
 
@@ -84,7 +84,7 @@ export class UserController {
   };
 
   // Deletar um usuário
-  deleteUser = async (req: Request, res: Response): Promise<void> => {
+  delete = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
 
     try {

@@ -50,18 +50,20 @@ export class AuthController {
   };
 
   // Endpoint para refresh do token
-  refreshAccessToken = async (req: Request, res: Response) => {
+  refreshAccessToken = async (req: Request, res: Response): Promise<void>  => {
     const { refreshToken } = req.body;
 
     if (!refreshToken) {
-      return res.status(400).json({ error: "Refresh token is required" });
+      res.status(400).json({ error: "Refresh token is required" });
+      return;
     }
 
     try {
       // Verificando se o refresh token é válido
       jwt.verify(refreshToken, JWT_SECRET, (err: any, decoded: any) => {
         if (err) {
-          return res.status(403).json({ error: "Invalid or expired refresh token" });
+          res.status(403).json({ error: "Invalid or expired refresh token" });
+          return;
         }
 
         // Gerar novo access token

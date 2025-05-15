@@ -1,11 +1,11 @@
 import { Router, type RequestHandler } from "express";
-import { StudentController } from "../../controllers/student.controller";
+import { UserController } from "../../controllers/user.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
 import { createUserSchema } from "../../dtos/user.dto";
 
 export const userRoutes = Router();
-const controller = new StudentController(prisma);
+const controller = new UserController(prisma);
 
 userRoutes.get("/", controller.index.bind(controller) as RequestHandler);
 userRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);

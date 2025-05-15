@@ -1,11 +1,11 @@
 import { Router, type RequestHandler } from "express";
-import { StudentController } from "../../controllers/student.controller";
+import { EventController } from "../../controllers/event.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
 import { createEventSchema } from "../../dtos/event.dto";
 
 export const eventRoutes = Router();
-const controller = new StudentController(prisma);
+const controller = new EventController(prisma);
 
 eventRoutes.get("/", controller.index.bind(controller) as RequestHandler);
 eventRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);

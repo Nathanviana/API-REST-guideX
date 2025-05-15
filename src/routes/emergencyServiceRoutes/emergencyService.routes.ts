@@ -1,11 +1,11 @@
 import { Router, type RequestHandler } from "express";
-import { StudentController } from "../../controllers/student.controller";
+import { EmergencyServiceController } from "../../controllers/emergencyService.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
 import { createEmergencyServiceSchema } from "../../dtos/emergencyService.dto";
 
 export const emergencyServiceRoutes = Router();
-const controller = new StudentController(prisma);
+const controller = new EmergencyServiceController(prisma);
 
 emergencyServiceRoutes.get("/", controller.index.bind(controller) as RequestHandler);
 emergencyServiceRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);
