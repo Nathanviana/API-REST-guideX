@@ -1,5 +1,5 @@
 import { Router, type RequestHandler } from "express";
-import { StudentController } from "../../controllers/studentController";
+import { StudentController } from "../../controllers/student.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
 import { createStudentSchema } from "../../dtos/student.dto";
