@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "ts-node src/index.ts"
+    "dev": "nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -14,11 +13,13 @@
   "dependencies": {
     "@prisma/client": "^6.7.0",
     "express": "^5.1.0",
-    "prisma": "^6.7.0"
+    "prisma": "^6.7.0",
+    "zod": "^3.24.4"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.18",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
   }
