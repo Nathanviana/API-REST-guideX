@@ -2,7 +2,7 @@ import { Router, type RequestHandler } from "express";
 import { StudentController } from "../../controllers/student.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
-import { createAccommodationSchema } from "../../dtos/Accommodation.dto";
+import { createAccommodationSchema } from "../../dtos/accommodation.dto";
 
 export const accommodationRoutes = Router();
 const controller = new StudentController(prisma);
