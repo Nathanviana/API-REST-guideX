@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "sqlite" // Pode ser MySQL ou SQLite também
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Student {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  country       String
+  university    String
+  course        String
+  accommodation String?  // Alojamento preferido
+  transport     String?  // Preferência de transporte
+  language      String   // Idioma preferido
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  feedback      Feedback[]
+}
+
+model Accommodation {
+  id          Int      @id @default(autoincrement())
+  name        String
+  address     String
+  description String
+  availability Boolean // Disponibilidade (livre/ocupado)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  location    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model EmergencyService {
+  id          Int      @id @default(autoincrement())
+  serviceName String
+  phoneNumber String
+  address     String
+  type        String  // Tipo de serviço (hospital, polícia, etc)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Feedback {
+  id          Int      @id @default(autoincrement())
+  studentId   Int
+  accommodationRating Int?
+  eventRating Int?
+  comments    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  student     Student  @relation(fields: [studentId], references: [id])
+}
+
+model Translation {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  en          String
+  es          String?
+  pt          String?
+  fr          String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
