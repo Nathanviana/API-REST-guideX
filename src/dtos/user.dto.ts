@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const baseUserSchema = z.object({
+const createUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
   name: z.string().optional(),
@@ -12,7 +12,7 @@ const baseUserSchema = z.object({
   language: z.string().optional(),
 });
 
-const userSchema = baseUserSchema.superRefine((data, ctx) => {
+const userSchema = createUserSchema.superRefine((data, ctx) => {
   if (data.userType === "student") {
     if (!data.university) {
       ctx.addIssue({
@@ -31,4 +31,4 @@ const userSchema = baseUserSchema.superRefine((data, ctx) => {
   }
 });
 
-export { userSchema };
+export { userSchema, createUserSchema };

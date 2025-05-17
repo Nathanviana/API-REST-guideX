@@ -31,14 +31,14 @@ export class AuthController {
 
       // Gerando o access token JWT
       const accessToken = jwt.sign(
-        { userId: user.id, email: user.email, role: user.role },
+        { userId: user.id, email: user.email, role: user.role, userType: user.userType },
         JWT_SECRET,
         { expiresIn: "1h" } // Expira em 1 hora
       );
 
       // Gerando o refresh token
       const refreshToken = jwt.sign(
-        { userId: user.id, email: user.email, role: user.role },
+        { userId: user.id, email: user.email, role: user.role, userType: user.userType },
         JWT_SECRET,
         { expiresIn: "30d" } // Expira em 30 dias
       );
@@ -68,7 +68,7 @@ export class AuthController {
 
         // Gerar novo access token
         const newAccessToken = jwt.sign(
-          { userId: decoded.userId, email: decoded.email, role: decoded.role },
+          { userId: decoded.userId, email: decoded.email, role: decoded.role, userType: decoded.userType },
           JWT_SECRET,
           { expiresIn: "1h" } // Novo access token válido por 1 hora
         );

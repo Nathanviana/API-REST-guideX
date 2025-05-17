@@ -7,16 +7,16 @@ import { createUserSchema } from "../../dtos/user.dto";
 export const userRoutes = Router();
 const controller = new UserController(prisma);
 
-userRoutes.get("/", controller.index.bind(controller) as RequestHandler);
-userRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);
+// userRoutes.get("/", controller.index.bind(controller) as RequestHandler);
+// userRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);
 userRoutes.post(
   "/",
   validate(createUserSchema),
-  controller.create.bind(controller) as RequestHandler
+  controller.register.bind(controller) as RequestHandler
 );
-userRoutes.put(
-  "/:id",
-  validate(createUserSchema),
-  controller.update.bind(controller) as RequestHandler
-);
-userRoutes.delete("/:id", controller.delete.bind(controller) as RequestHandler);
+// userRoutes.put(
+//   "/:id",
+//   validate(createUserSchema),
+//   controller.update.bind(controller) as RequestHandler
+// );
+// userRoutes.delete("/:id", controller.delete.bind(controller) as RequestHandler);

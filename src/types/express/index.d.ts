@@ -7,6 +7,7 @@ declare global {
         userId: number;
         email: string;
         role: string;
+        userType: string;
       };
     }
   }
