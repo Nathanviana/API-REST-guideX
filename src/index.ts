@@ -1,5 +1,6 @@
 import express, { json } from 'express';
 import dotenv from "dotenv";
+import cookieParser from 'cookie-parser';
 import { routes } from './routes';
 
 dotenv.config();
@@ -13,7 +14,7 @@ app.use((req, res, next) => {
   next();
 });
 
-
+app.use(cookieParser());
 app.use(json());
 app.use('/api', routes);
 

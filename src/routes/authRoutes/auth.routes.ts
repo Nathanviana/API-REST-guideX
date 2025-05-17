@@ -12,5 +12,6 @@ const controller = new AuthController(prisma);
 
 router.post("/login", validate(createUserSchema), controller.login);
 router.post("/refresh", controller.refreshAccessToken); // Rota para refresh do token
+router.post("/logout", controller.logout); // Rota para logout
 
 export { router as authRoutes };

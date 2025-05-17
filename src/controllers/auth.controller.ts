@@ -43,40 +43,64 @@ export class AuthController {
         { expiresIn: "30d" } // Expira em 30 dias
       );
 
-      res.json({ accessToken, refreshToken });
-    } catch (error) {
-      res.status(500).json({ error: "Error logging in" });
-    }
+    // Aqui você envia os tokens no cookie HTTP-only
+    res
+      .cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 1000, // 1 hora
+        sameSite: "strict",
+      })
+      .cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 30 * 24 * 60 * 60 * 1000, // 30 dias
+        sameSite: "strict",
+      })
+      .json({ message: "Logged in successfully" });
+  } catch (error) {
+    res.status(500).json({ error: "Error logging in" });
+  }
   };
 
   // Endpoint para refresh do token
-  refreshAccessToken = async (req: Request, res: Response): Promise<void>  => {
-    const { refreshToken } = req.body;
+  refreshAccessToken = async (req: Request, res: Response): Promise<void> => {
+  const refreshToken = req.cookies?.refreshToken;
+  if (!refreshToken) {
+    res.status(400).json({ error: "Refresh token is required" });
+    return;
+  }
 
-    if (!refreshToken) {
-      res.status(400).json({ error: "Refresh token is required" });
+  jwt.verify(refreshToken, JWT_SECRET, (err: any, decoded: any) => {
+    if (err) {
+      res.status(403).json({ error: "Invalid or expired refresh token" });
       return;
     }
 
-    try {
-      // Verificando se o refresh token é válido
-      jwt.verify(refreshToken, JWT_SECRET, (err: any, decoded: any) => {
-        if (err) {
-          res.status(403).json({ error: "Invalid or expired refresh token" });
-          return;
-        }
+    const newAccessToken = jwt.sign(
+      { userId: decoded.userId, email: decoded.email, role: decoded.role, userType: decoded.userType },
+      JWT_SECRET,
+      { expiresIn: "1h" }
+    );
 
-        // Gerar novo access token
-        const newAccessToken = jwt.sign(
-          { userId: decoded.userId, email: decoded.email, role: decoded.role, userType: decoded.userType },
-          JWT_SECRET,
-          { expiresIn: "1h" } // Novo access token válido por 1 hora
-        );
+    res
+      .cookie("accessToken", newAccessToken, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        maxAge: 60 * 60 * 1000,
+        sameSite: "strict",
+      })
+      .json({ message: "Access token refreshed" });
+  });
+};
 
-        res.json({ accessToken: newAccessToken });
-      });
-    } catch (error) {
-      res.status(500).json({ error: "Error refreshing access token" });
-    }
+
+  // Logout
+  logout = (req: Request, res: Response): void => {
+    res
+      .clearCookie("accessToken", { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production" })
+      .clearCookie("refreshToken", { httpOnly: true, sameSite: "strict", secure: process.env.NODE_ENV === "production" })
+      .status(200)
+      .json({ message: "Logged out successfully" });
   };
 }
