@@ -17,5 +17,5 @@ routes.use("/events", authenticateToken, eventRoutes);
 routes.use("/emergency-services", authenticateToken, emergencyServiceRoutes);
 routes.use("/feedbacks", authenticateToken, feedbackRoutes);
 routes.use("/translations", authenticateToken, translationRoutes);
-routes.use("/users", authenticateToken, userRoutes);
+routes.use("/users", userRoutes);
 routes.use("/auth",  authRoutes);
