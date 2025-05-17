@@ -12,7 +12,6 @@ import { authenticateToken } from "../middlewares/auth.middleware";
 
 export const routes = Router();
 
-// routes.use("/students", studentRoutes);
 routes.use("/accommodations", authenticateToken, accommodationRoutes);
 routes.use("/events", authenticateToken, eventRoutes);
 routes.use("/emergency-services", authenticateToken, emergencyServiceRoutes);

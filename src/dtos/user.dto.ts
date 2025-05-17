@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const createUserSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
+  password: z.string().min(3),
   name: z.string().optional(),
   role: z.string().optional(),
   userType: z.enum(["normal", "student"]),
