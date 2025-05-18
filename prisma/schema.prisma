@@ -13,19 +13,26 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Student {
-  id            Int      @id @default(autoincrement())
-  name          String
-  email         String   @unique
-  country       String
-  university    String
-  course        String
-  accommodation String?  // Alojamento preferido
-  transport     String?  // Preferência de transporte
-  language      String   // Idioma preferido
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  feedback      Feedback[]
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  name        String?
+  role        String   @default("user") // exemplo: "user", "admin"
+  userType    UserType
+  country     String?  // dados de estudante, opcionais para usuários comuns
+  university  String?
+  course      String?
+  language    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  feedback    Feedback[]
+}
+
+enum UserType {
+  normal
+  student
 }
 
 model Accommodation {
@@ -68,7 +75,7 @@ model Feedback {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   
-  student     Student  @relation(fields: [studentId], references: [id])
+  student     User  @relation(fields: [studentId], references: [id])
 }
 
 model Translation {
@@ -81,3 +88,4 @@ model Translation {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
