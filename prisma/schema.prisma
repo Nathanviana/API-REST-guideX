@@ -19,6 +19,7 @@ model User {
   password    String
   name        String?
   role        String   @default("user") // exemplo: "user", "admin"
+  isActive    Boolean  @default(true)
   userType    UserType
   country     String?  // dados de estudante, opcionais para usuários comuns
   university  String?

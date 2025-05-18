@@ -3,6 +3,7 @@ import { UserController } from "../../controllers/user.controller";
 import { prisma } from "../../factories/prisma.factory";
 import { validate } from "../../middlewares/validator.middleware";
 import { createUserSchema } from "../../dtos/user.dto";
+import { authorizeAccess } from "../../middlewares/role.middleware";
 
 export const userRoutes = Router();
 const controller = new UserController(prisma);
@@ -20,3 +21,8 @@ userRoutes.post(
 //   controller.update.bind(controller) as RequestHandler
 // );
 // userRoutes.delete("/:id", controller.delete.bind(controller) as RequestHandler);
+userRoutes.patch(
+  "/:id/status",
+   authorizeAccess(["admin"]),
+   controller.toggleUserStatus.bind(controller) as RequestHandler
+);

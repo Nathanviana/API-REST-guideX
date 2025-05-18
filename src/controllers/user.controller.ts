@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import { userSchema } from "../dtos/user.dto"; // seu schema zod atualizado
 
 export class UserController {
+  static toggleUserStatus: any;
   constructor(private prisma: PrismaClient) {}
 
   register = async (req: Request, res: Response): Promise<void> => {
@@ -52,6 +53,35 @@ export class UserController {
       } else {
         res.status(500).json({ error: "Erro ao criar usuário" });
       }
+    }
+  };
+
+  toggleUserStatus = async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+
+    try {
+      const user = await this.prisma.user.findUnique({ where: { id: parseInt(id) } });
+
+      if (!user) {
+        res.status(404).json({ error: "Usuário não encontrado" });
+        return;
+      }
+
+      const updatedUser = await this.prisma.user.update({
+        where: { id: parseInt(id) },
+        data: { isActive: !user.isActive },
+      });
+
+      res.status(200).json({
+        id: updatedUser.id,
+        email: updatedUser.email,
+        name: updatedUser.name,
+        role: updatedUser.role,
+        userType: updatedUser.userType,
+        isActive: updatedUser.isActive,
+      });
+    } catch (error: any) {
+      res.status(500).json({ error: "Erro ao atualizar status do usuário" });
     }
   };
 }
