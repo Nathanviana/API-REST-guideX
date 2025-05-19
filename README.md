@@ -65,7 +65,7 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
 
 6. The API will be available at:  
    ```
-   http://localhost:3000
+   http://localhost:4000
    ```
 
 ---
@@ -75,13 +75,12 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
 ```
 /src
  ├── controllers/         # Endpoint logic
- ├── routes/              # Route definitions
+ ├── dtos/                # validators
+ ├── factories/           # uses prisma
  ├── middlewares/         # Authentication and permission middlewares
- ├── services/            # Auxiliary services and business logic
- ├── prisma/              # Prisma schema and migrations
- ├── utils/               # Utility functions (e.g., token generation)
- ├── app.ts               # Main Express configuration
- └── server.ts            # Server initialization
+ ├── routes/              # Route definitions
+ ├── types/               # Route definitions
+ └── index.ts             # Server initialization
 ```
 
 ---
@@ -90,7 +89,7 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
 
 The API has interactive documentation generated with Swagger. After running the project, access:  
 ```
-http://localhost:3000/api-docs
+http://localhost:4000/api-docs
 ```
 There you can explore the endpoints, see the parameters, and test requests directly in the browser.
 
