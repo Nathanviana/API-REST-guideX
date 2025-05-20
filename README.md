@@ -79,19 +79,9 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
  ├── factories/           # uses prisma
  ├── middlewares/         # Authentication and permission middlewares
  ├── routes/              # Route definitions
- ├── types/               # Route definitions
+ ├── types/               # global types
  └── index.ts             # Server initialization
 ```
-
----
-
-## Swagger Documentation
-
-The API has interactive documentation generated with Swagger. After running the project, access:  
-```
-http://localhost:4000/api-docs
-```
-There you can explore the endpoints, see the parameters, and test requests directly in the browser.
 
 ---
 
@@ -107,8 +97,7 @@ There you can explore the endpoints, see the parameters, and test requests direc
 ## References
 
 - [JWT - JSON Web Tokens](https://jwt.io/introduction)  
-- [Prisma ORM](https://www.prisma.io/docs/)  
-- [Swagger OpenAPI](https://swagger.io/specification/)  
+- [Prisma ORM](https://www.prisma.io/docs/)   
 
 ---
 
