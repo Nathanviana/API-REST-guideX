@@ -48,7 +48,6 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
    ```
    DATABASE_URL="file:./dev.db"
    JWT_SECRET="your_secret_key_here"
-   JWT_EXPIRES_IN="1h"
    ```
 
 4. Run the database migrations  
