@@ -32,7 +32,7 @@ The **api-rest-guidex** is a RESTful API developed in Node.js with Express and P
 
 1. Clone the repository  
    ```bash
-   git clone https://github.com/your-username/api-rest-guidex.git
+   git clone https://github.com/Nathanviana/API-REST-guideX.git
    cd api-rest-guidex
    ```
 
