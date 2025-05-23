@@ -8,7 +8,7 @@ import { authorizeAccess } from "../../middlewares/role.middleware";
 export const userRoutes = Router();
 const controller = new UserController(prisma);
 
-// userRoutes.get("/", controller.index.bind(controller) as RequestHandler);
+userRoutes.get("/", controller.index.bind(controller) as RequestHandler);
 // userRoutes.get("/:id", controller.show.bind(controller) as RequestHandler);
 userRoutes.post(
   "/",
@@ -24,5 +24,5 @@ userRoutes.post(
 userRoutes.patch(
   "/:id/status",
    authorizeAccess(["admin"]),
-   controller.toggleUserStatus.bind(controller) as RequestHandler
+   controller.update.bind(controller) as RequestHandler
 );

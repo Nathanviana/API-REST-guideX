@@ -9,13 +9,20 @@ export class UserController {
   static toggleUserStatus: any;
   constructor(private prisma: PrismaClient) {}
 
+  index = async (req: Request, res: Response): Promise<void> => {
+    const users = await this.prisma.user.findMany();
+    res.json(users);
+  };
+
   register = async (req: Request, res: Response): Promise<void> => {
     try {
       // Validação dos dados com o schema zod unificado
       const parsedData = userSchema.parse(req.body);
 
       // Verifica se já existe usuário com esse email
-      const existingUser = await this.prisma.user.findUnique({ where: { email: parsedData.email } });
+      const existingUser = await this.prisma.user.findUnique({
+        where: { email: parsedData.email },
+      });
       if (existingUser) {
         res.status(400).json({ error: "Email já em uso" });
         return;
@@ -56,11 +63,13 @@ export class UserController {
     }
   };
 
-  toggleUserStatus = async (req: Request, res: Response): Promise<void> => {
+  update = async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
 
     try {
-      const user = await this.prisma.user.findUnique({ where: { id: parseInt(id) } });
+      const user = await this.prisma.user.findUnique({
+        where: { id: parseInt(id) },
+      });
 
       if (!user) {
         res.status(404).json({ error: "Usuário não encontrado" });
