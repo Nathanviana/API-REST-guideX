@@ -6,4 +6,6 @@
 
 DATABASE_URL="file:./dev.db"
 
-PORT=3000
+JWT_SECRET=""
+
+PORT=4000
