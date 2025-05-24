@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import cookieParser from 'cookie-parser';
 import { routes } from './routes';
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./docs/swagger";
 
 dotenv.config();
 
@@ -26,9 +28,10 @@ app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(json());
 app.use('/api', routes);
-
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
+  console.log(`Swagger UI available at http://localhost:${port}/api-docs`);
 });
