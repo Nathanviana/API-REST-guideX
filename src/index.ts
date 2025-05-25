@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import { routes } from './routes';
 import swaggerUi from "swagger-ui-express";
 import { swaggerSpec } from "./docs/swagger";
+import "./types/express";
 
 dotenv.config();
 

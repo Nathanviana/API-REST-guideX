@@ -5,6 +5,7 @@ import { AuthController } from "../../controllers/auth.controller";
 import { validate } from "../../middlewares/validator.middleware";
 import { loginSchema } from "../../dtos/login.dto"; // Você pode criar um DTO de login se necessário
 import { prisma } from "../../factories/prisma.factory";
+import { authenticateToken } from "../../middlewares/auth.middleware";
 
 
 const router = Router();
@@ -13,6 +14,12 @@ const controller = new AuthController(prisma);
 router.post("/login", validate(loginSchema), controller.login);
 router.post("/refresh", controller.refreshAccessToken); // Rota para refresh do token
 router.post("/logout", controller.logout); // Rota para logout
+
+router.get("/me", authenticateToken, (req, res) => {
+  const { userId, name, email, role } = req.user as { userId: number; name: string; email: string; role: string };
+  res.json({ userId, name, email, role });
+});
+
 
 export { router as authRoutes };
 
