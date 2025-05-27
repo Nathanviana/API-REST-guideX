@@ -7,6 +7,7 @@ import { feedbackRoutes } from "./feedbackRoutes/feedback.routes";
 import { translationRoutes } from "./translationRoutes/translation.routes";
 import { userRoutes } from "./userRoutes/user.routes";
 import { authRoutes } from "./authRoutes/auth.routes";
+import { dashboardRoutes } from "./dashboardRoutes/dashboard.routes";
 import { authenticateToken } from "../middlewares/auth.middleware";
 
 
@@ -19,3 +20,4 @@ routes.use("/feedbacks", authenticateToken, feedbackRoutes);
 routes.use("/translations", authenticateToken, translationRoutes);
 routes.use("/users", userRoutes);
 routes.use("/auth",  authRoutes);
+routes.use("/dashboard", authenticateToken, dashboardRoutes);
