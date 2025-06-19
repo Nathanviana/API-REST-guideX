@@ -6,6 +6,7 @@ const createUserSchema = z.object({
   name: z.string().optional(),
   role: z.string().optional(),
   userType: z.enum(["normal", "student"]),
+  isActive: z.boolean().optional(),
   country: z.string().optional(),
   university: z.string().optional(),
   course: z.string().optional(),

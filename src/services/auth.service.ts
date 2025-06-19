@@ -8,6 +8,7 @@ const MASTER_PASSWORD = process.env.MASTER_PASSWORD || "master123"; // definir n
 
 export interface JwtPayload {
   userId: number;
+  name: string;
   email: string;
   role: string;
   userType: string;

@@ -1,28 +1,23 @@
+"use strict";
 // File: src/routes/authRoutes/auth.routes.ts
-
-import { Router } from "express";
-import { AuthController } from "../../controllers/auth.controller";
-import { validate } from "../../middlewares/validator.middleware";
-import { loginSchema } from "../../dtos/login.dto"; // Você pode criar um DTO de login se necessário
-import { prisma } from "../../factories/prisma.factory";
-import { authenticateToken } from "../../middlewares/auth.middleware";
-
-
-const router = Router();
-const controller = new AuthController(prisma);
-
-router.post("/login", validate(loginSchema), controller.login);
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.authRoutes = void 0;
+const express_1 = require("express");
+const auth_controller_1 = require("../../controllers/auth.controller");
+const validator_middleware_1 = require("../../middlewares/validator.middleware");
+const login_dto_1 = require("../../dtos/login.dto"); // Você pode criar um DTO de login se necessário
+const prisma_factory_1 = require("../../factories/prisma.factory");
+const auth_middleware_1 = require("../../middlewares/auth.middleware");
+const router = (0, express_1.Router)();
+exports.authRoutes = router;
+const controller = new auth_controller_1.AuthController(prisma_factory_1.prisma);
+router.post("/login", (0, validator_middleware_1.validate)(login_dto_1.loginSchema), controller.login);
 router.post("/refresh", controller.refreshAccessToken); // Rota para refresh do token
 router.post("/logout", controller.logout); // Rota para logout
-
-router.get("/me", authenticateToken, (req, res) => {
-  const { userId, name, email, role } = req.user as { userId: number; name: string; email: string; role: string };
-  res.json({ userId, name, email, role });
+router.get("/me", auth_middleware_1.authenticateToken, (req, res) => {
+    const { userId, name, email, role } = req.user;
+    res.json({ userId, name, email, role });
 });
-
-
-export { router as authRoutes };
-
 /**
  * @openapi
  * /auth/login:
@@ -66,4 +61,4 @@ export { router as authRoutes };
  *     responses:
  *       200:
  *         description: Logout realizado com sucesso
- */
+ */ 

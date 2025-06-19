@@ -27,6 +27,7 @@ export class AuthController {
 
       const payload: JwtPayload = {
         userId: user.id,
+        name: user.name ?? "",
         email: user.email,
         role: user.role,
         userType: user.userType,

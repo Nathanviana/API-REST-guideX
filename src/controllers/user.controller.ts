@@ -107,6 +107,7 @@ export class UserController {
           country: parsedData.country,
           university: parsedData.university,
           course: parsedData.course,
+          isActive: parsedData.isActive,
         },
       });
       // Retorna dados (sem senha)
